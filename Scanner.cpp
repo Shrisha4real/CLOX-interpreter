@@ -1,11 +1,17 @@
 #include "Scanner.h"
-#include "Clox.h"  
-#include "Token.h"
+#include "Clox.h"   // Include the Clox class for error handling.
+#include "Token.h"  // Include the Token class for managing tokens
 #include <iostream>
 #include <sstream>
 
 using namespace std;
+// Initialize the static keyword map for the Scanner class
 unordered_map<string, TokenType> Scanner::keywords;
+
+/**
+ * Populates the keyword map with predefined Lox language keywords.
+ * Maps keyword strings to their corresponding TokenType values.
+ */
 void Scanner::initializeKeywords() {
     keywords.insert({ "and",AND });
     keywords.insert({ "class",CLASS });
@@ -24,25 +30,35 @@ void Scanner::initializeKeywords() {
     keywords.insert({ "while",WHILE });
 }
 
+/**
+ * Constructor for Scanner.
+ * Initializes a scanner with the given source code.
+ */
 Scanner::Scanner(string source) : source(source) {
     tokens.clear();
     
 }
 
+
+//Checks if the scanner has reached the end of the source code.
 bool Scanner::isEnd() {
     return (current >= source.length());
 }
 
+
+ //Adds a token to the token list with an optional literal value.
 void Scanner::addToken(TokenType type, any literal) {
     int dif = (current - start == 0) ? 1 : (current - start);
     string text = source.substr(start, dif);
     tokens.emplace_back(type, text, literal, line);
 }
 
+//Adds a token to the token list without a literal value.
 void Scanner::addToken(TokenType type) {
     addToken(type, nullptr);
 }
 
+//Matches the current character with an expected character.
 bool Scanner::match(char expect) {
     if (isEnd()) return false;
     if (source.at(current) == expect) {
@@ -52,6 +68,10 @@ bool Scanner::match(char expect) {
     return false;
 }
 
+/**
+ * Handles string literals in the source code.
+ * Extracts the string content and adds a STRING token.
+ */
 void Scanner::stringCase() {
     while (!isEnd() && source.at(current) != '"') {
         if (source.at(current) == '\n')
@@ -66,6 +86,10 @@ void Scanner::stringCase() {
     addToken(STRING, s);
 }
 
+/**
+ * Scans the next token from the source code.
+ * Identifies symbols, keywords, and literals.
+ */
 void Scanner::scanToken() {
     char c = source.at(current++);
     switch (c) {
@@ -125,6 +149,7 @@ void Scanner::scanToken() {
     }
 };
 
+//Scans the entire source code and returns a list of tokens.
 list<Token> Scanner::scanTokens() {
     while (!isEnd()) {
         start = current;
@@ -134,12 +159,14 @@ list<Token> Scanner::scanTokens() {
     return tokens;
 };
 
+// Checks if a character is a digit.
 bool Scanner::isDigit(char c) {
     if (c >= '0' && c <= '9') 
         return true;
     return false;
 }
 
+//Handles numeric literals and converts them into tokens.
 void Scanner::number() {
     while (isDigit(source.at(current))) {
         current++;
@@ -159,13 +186,21 @@ void Scanner::number() {
     addToken(NUMBER , num);
 
 };
+
+//Checks if a character is an alphabetic letter or underscore.
 bool Scanner::isAlpha(char c) {
     return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_'));      
 }
 
+//Checks if a character is alphanumeric (letter or digit).
 bool Scanner::isAlphaNumeric(char c) {
     return (isDigit(c) || isAlpha(c));
 }
+
+/**
+ * Handles identifiers and keywords.
+ * Identifies if a token is a keyword or an identifier.
+ */
 void Scanner::identifier() {
 
     while (isAlphaNumeric(source.at(current))) {
