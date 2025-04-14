@@ -7,28 +7,29 @@
 using namespace std;
 
 enum TokenType {
-	// Single-character tokens.
+	// Single-character tokens.(0-10)
 	LEFT_PAREN, RIGHT_PAREN, LEFT_BRACE, RIGHT_BRACE,
 	COMMA, DOT, MINUS, PLUS, SEMICOLON, SLASH, STAR,
 
-	// One or two character tokens.
+	// One or two character tokens.(11-18)
 	BANG, BANG_EQUAL,
 	EQUAL, EQUAL_EQUAL,
 	GREATER, GREATER_EQUAL,
 	LESS, LESS_EQUAL,
 
-	// Literals.
+	// Literals.(19-21)
 	IDENTIFIER, STRING , NUMBER,
 
-	// Keywords.
+	// Keywords.(22-37)
 	AND, CLASS, ELSE, FALSE, FUN, FOR, IF, NIL, OR,
 	PRINT, RETURN, SUPER, THIS, TRUE, VAR, WHILE,
 
+	//(38)
 	EOD
 };
 
 class Token {
-protected:
+public:
 	const TokenType type;
 	const string lexeme;
 	const std::any literal;
