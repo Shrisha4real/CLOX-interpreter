@@ -2,8 +2,17 @@
 #include "Scanner.h"
 #include <fstream>
 #include <sstream>
+
+#include "AstPrinter.h"
+#include "Expr.h" 
 using namespace std;
 
+static void test() {
+    Expr* Binaryexpr = new Binary(new Unary(new Token(TokenType::MINUS, "-", nullptr, 1), new Literal(123)), new Token(TokenType::STAR, "*", nullptr, 1), new Grouping(new Literal(45.5)));
+    AstPrinter* AST = new AstPrinter();
+    std::cout<<(AST->print(Binaryexpr));
+
+}
 bool Clox::hadError = false;  
 
 void Clox::read(const string& source) {
@@ -36,7 +45,8 @@ void Clox::runFile(const string& filename) {
     buffer << file.rdbuf();
     read(buffer.str());
     file.close();
-
+    //testing ast
+    test();
     if (hadError) exit(0);
 }
 

@@ -16,8 +16,23 @@ std::string AstPrinter::visitGroupingExpr(Grouping* expr) {
 
 }
 std::string AstPrinter::visitLiteralExpr(Literal* expr) {
-	if (expr->value.has_value()) return "nil";
-	return std::any_cast<std::string>(expr->value);
+	if (!(expr->value.has_value())) return "nil";
+	if(expr->value.type()==typeid(std::string))
+		return std::any_cast<std::string>(expr->value);
+	else if (expr->value.type() == typeid(double)) {
+		double d = std::any_cast<double>(expr->value);
+		stringstream ss;
+		ss << d;
+		return ss.str();
+	}
+		
+
+	else if (expr->value.type() == typeid(int)) {
+		int i = std::any_cast<int>(expr->value);
+		stringstream ss;
+		ss << i;
+		return ss.str();
+	}
 
 }
 std::string AstPrinter::visitUnaryExpr(Unary* expr) {

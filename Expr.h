@@ -5,11 +5,6 @@ using namespace std;
 #include <string> 
 #include <vector> 
 
-class Expr {
-public:
-	virtual string accept(Visitor *visitor) = 0;
-	virtual ~Expr() = default;
-};
 
 class Binary;
 class Grouping;
@@ -23,6 +18,13 @@ public:
 	virtual string visitUnaryExpr(Unary* Expr) = 0;
 	virtual ~Visitor() = default;
 };
+
+class Expr {
+public:
+	virtual string accept(Visitor *visitor) = 0;
+	virtual ~Expr() = default;
+};
+
 class Binary : public Expr {
 public:
 	Expr* left;
