@@ -28,10 +28,10 @@ public:
 class Binary : public Expr {
 public:
 	Expr* left;
-	Token* op;
+	const Token* op;
 	Expr* right;
 public:
-	Binary(Expr* left, Token* op, Expr* right) : left(left), op(op), right(right) {};
+	Binary(Expr* left, const Token* op, Expr* right) : left(left), op(op), right(right) {};
 	string accept(Visitor* visitor) override {
 		return visitor->visitBinaryExpr(this);
 	};
@@ -62,10 +62,10 @@ public:
 
 class Unary : public Expr {
 public:
-	Token* op;
+	const Token* op;
 	Expr* right;
 public:
-	Unary(Token* op, Expr* right) : op(op), right(right) {};
+	Unary(const Token* op, Expr* right) : op(op), right(right) {};
 	string accept(Visitor* visitor) override {
 		return visitor->visitUnaryExpr(this);
 	};

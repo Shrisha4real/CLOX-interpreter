@@ -119,13 +119,14 @@ void Scanner::scanToken() {
             identifier();
         }
         else {
-            Clox::error(line, "Unexpected character.");
-        }       
+            std::string unexpected(1, c);
+            Clox::report(line, "", "Unexpected character: '" + unexpected + "'.");
+        }
         break;
     }
 };
 
-list<Token> Scanner::scanTokens() {
+std::vector<Token> Scanner::scanTokens() {
     while (!isEnd()) {
         start = current;
         scanToken();
@@ -141,6 +142,13 @@ bool Scanner::isDigit(char c) {
 }
 
 void Scanner::number() {
+    if (isEnd()) {
+        stringstream s(source.substr(start, current - start));
+        double num;
+        s >> num;
+        addToken(NUMBER, num);
+        return;
+    }
     while (isDigit(source.at(current))) {
         current++;
     }

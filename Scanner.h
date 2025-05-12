@@ -10,7 +10,7 @@ using namespace std;
 class Scanner {
 protected:
     string source;
-    list<Token> tokens;
+    std::vector<Token> tokens;
     long int start = 0, current = 0, line = 1;
 
     bool isEnd();
@@ -29,7 +29,7 @@ protected:
 public:
     Scanner(string source);    
     void scanToken();
-    list<Token> scanTokens();
+    std::vector<Token> scanTokens();
     static void initializeKeywords();
 };
 

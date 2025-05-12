@@ -6,7 +6,7 @@
 // change the cli arguments in the Properties -> Debuggeing -> Command Arguments
 
 int main(int argc, char** argv) {
-	std::string exePath = "E:\\C++\\tool1\\x64\\Debug\\tool1.exe E:\\C++\\dummy";
+	//std::string exePath = "E:\\C++\\tool1\\x64\\Debug\\tool1.exe E:\\C++\\dummy";
 	//std::string argPath = "E:\\C++\\dummy";
 
 	////// Wrap exePath in quotes in case it contains spaces
@@ -14,14 +14,14 @@ int main(int argc, char** argv) {
 
 	//std::cout << "Running command: " << command << std::endl;
 
-	int result = system(exePath.c_str());
+	//int result = system(exePath.c_str());
 
-	if (result == 0) {
-		std::cout << "Dependent project executed successfully!" << std::endl;
-	}
-    else {
-		std::cerr << "Execution failed!" << std::endl;
-	}
+	//if (result == 0) {
+	//	std::cout << "Dependent project executed successfully!" << std::endl;
+	//}
+ //   else {
+	//	std::cerr << "Execution failed!" << std::endl;
+	//}
 
 	Scanner::initializeKeywords();
 	if (argc > 2) {

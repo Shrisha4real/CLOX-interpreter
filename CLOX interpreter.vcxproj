@@ -133,6 +133,7 @@
     <ClCompile Include="Clox.cpp" />
     <ClCompile Include="Expr.cpp" />
     <ClCompile Include="Main_Clox.cpp" />
+    <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Scanner.cpp" />
     <ClCompile Include="Token.cpp" />
   </ItemGroup>
@@ -141,6 +142,7 @@
     <ClInclude Include="Clox.h" />
     <ClInclude Include="Expr.h" />
     <ClInclude Include="header.h" />
+    <ClInclude Include="Parser.h" />
     <ClInclude Include="Scanner.h" />
     <ClInclude Include="Token.h" />
   </ItemGroup>
